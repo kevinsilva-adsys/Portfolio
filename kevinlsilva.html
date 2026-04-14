@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kevin L. Silva — ADSys</title>
+
+<link rel="icon" href="logo-trtl.jpeg">
+<link rel="apple-touch-icon" href="logo-trtl.jpeg">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root {
+  --bg: #050505;
+  --primary: #e6e6e6; /* branco/prata */
+  --secondary: #111;
+  --glass: rgba(255,255,255,0.05);
+  --text: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  backdrop-filter: blur(10px);
+}
+
+.profile {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+.title h1 { font-size: 14px; margin: 0; }
+.title span { font-size: 11px; color: #888; }
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -420px;
+  width: 350px;
+  height: 100%;
+  background: var(--secondary);
+  backdrop-filter: blur(15px);
+  padding: 25px;
+  transition: 0.4s;
+  overflow-y: auto;
+  box-shadow: 0 0 25px rgba(255,255,255,0.2);
+}
+
+.sidebar.active { left: 0; }
+
+/* botão fechar */
+.close-btn {
+  cursor: pointer;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.sidebar img {
+  width: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.section button {
+  width: 100%;
+  margin-top: 10px;
+  background: var(--glass);
+  border: 1px solid var(--primary);
+  color: var(--text);
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.section button:hover {
+  background: var(--primary);
+  color: #000;
+}
+
+.hidden { display: none; }
+
+.rightbar {
+  position: fixed;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.rightbar a {
+  color: white;
+  font-size: 20px;
+  transition: 0.3s;
+}
+
+.rightbar a:hover {
+  color: var(--primary);
+  transform: scale(1.2);
+}
+
+/* dropdown controlado via JS */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 30px;
+  background: #111;
+  border: 1px solid var(--primary);
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 8px;
+  font-size: 12px;
+}
+
+@media(max-width: 768px) {
+  .sidebar { width: 90%; }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="header">
+  <img src="fotoperfil.jpeg" class="profile" onclick="toggleSidebar()">
+
+  <div class="title">
+    <h1>Feito por: Kevin L. Silva — ADSys</h1>
+    <span>Consulting, Analysis and Development in Systems</span>
+  </div>
+</div>
+
+<div class="sidebar" id="sidebar">
+  <div class="close-btn" onclick="closeSidebar()">←</div>
+
+  <img src="fotoperfil.jpeg">
+  <h2>Kevin L. Silva — ADSys</h2>
+
+  <p>Olá! Sou Kevin, Analista de Sistemas. Minha expertise está voltada para a implementação, suporte técnico e melhoria contínua de sistemas, sempre com o objetivo de garantir eficiência e qualidade nos processos de gestão em geral.</p>
+
+  <div class="section">
+    <button onclick="toggle('formacao')">Formações</button>
+    <p id="formacao" class="hidden">Anhanguera Educacional - Technical Degree, Computer Systems Analysis - ago/2024 – jan/2027</p>
+
+    <button onclick="toggle('vivver')">Crescer & Vivver Sistemas</button>
+    <p id="vivver" class="hidden">System Analyst - Atualmente, atuo na homologação de versões de um software de gestão voltado para a saúde pública, com foco na identificação e localização de erros. Quando problemas são detectados, realizo a abertura de chamados em diferentes sistemas de gestão de tickets, garantindo o registro e acompanhamento adequado das ocorrências. Também presto suporte técnico tanto para colaboradores internos da empresa (Implantadores) quanto para clientes externos, principalmente profissionais da saúde. Esse suporte é realizado por meio de atendimento via e-mail e telefonia, assegurando a resolução de dúvidas, problemas técnicos e a orientação necessária para o uso eficiente do sistema. Minha atuação combina habilidades técnicas, como análise de erros e gestão de chamados, com competências interpessoais, como comunicação clara e atendimento ao cliente, sempre visando a melhoria contínua dos processos e a satisfação dos usuários.</p>
+
+    <button onclick="toggle('potenza')">Correios/Potenza</button>
+    <p id="potenza" class="hidden">Supervisor - No cargo de Supervisor Operacional, atuei em uma empresa terceirizada prestando serviços aos Correios, mantendo as mesmas responsabilidades e funções, mas sob uma nova gestão.</p>
+
+    <button onclick="toggle('go2b')">Correios/GO2B</button>
+    <p id="go2b" class="hidden">Supervisor - No cargo de Supervisor Operacional, atuei em uma empresa terceirizada prestando serviços aos Correios. Fui responsável pela gestão completa da operação, garantindo eficiência, organização e qualidade em todos os processos. Minhas principais atribuições incluíam:
+
+Direcionamento de Cargas: Coordenava o fluxo de cargas, assegurando que os recursos fossem alocados de forma estratégica para atender às demandas operacionais.
+
+Planejamento de Fluxo Operacional: Elaborava e implementava planos de ação alinhados às necessidades da operação, otimizando o tempo e os recursos disponíveis.
+
+Gestão de Equipe: Supervisionava a equipe do setor, gerenciando horários, condutas e desempenho, além de promover um ambiente de trabalho colaborativo e produtivo.
+
+Resolução de Desafios Operacionais: Atuava de forma proativa para identificar e solucionar problemas, garantindo a continuidade e a qualidade dos serviços prestados.
+
+Minha atuação como supervisor exigia habilidades de liderança, organização e tomada de decisão, sempre com foco em alcançar os objetivos operacionais e manter a excelência no atendimento às demandas da empresa.</p>
+  </div>
+</div>
+
+<div class="rightbar">
+  <a href="https://www.linkedin.com/in/kevinsilva-adsys" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <a href="mailto:kevinsilva.adsys@gmail.com"><i class="fas fa-envelope"></i></a>
+
+  <div class="dropdown">
+    <a href="#" onclick="toggleDropdown(event)"><i class="fab fa-github"></i></a>
+    <div class="dropdown-content" id="githubMenu">
+      <a href="https://github.com/kevinsilva-adsys/BotAtualizacao">BotAtualizacao</a>
+      <a href="https://github.com/kevinsilva-adsys/BotQueda">BotQueda</a>
+      <a href="https://github.com/kevinsilva-adsys/PaineldeMunicipios">Painel de Municipios</a>
+    </div>
+  </div>
+
+  <a href="https://wa.me/5531994953531" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+
+<script>
+// SIDEBAR
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('active');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('active');
+}
+
+// fechar ao clicar fora
+document.addEventListener('click', function(e) {
+  const sidebar = document.getElementById('sidebar');
+  if (!sidebar.contains(e.target) && !e.target.classList.contains('profile')) {
+    sidebar.classList.remove('active');
+  }
+});
+
+// dropdown github
+function toggleDropdown(e) {
+  e.preventDefault();
+  document.getElementById('githubMenu').classList.toggle('show');
+}
+
+// fechar dropdown ao clicar fora
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('githubMenu');
+  if (!e.target.closest('.dropdown')) {
+    menu.classList.remove('show');
+  }
+});
+
+function toggle(id) {
+  document.getElementById(id).classList.toggle('hidden');
+}
+
+// CANVAS
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+let particles = [];
+
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.7,
+      vy: (Math.random() - 0.5) * 0.7
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x <= 0 || p.x >= canvas.width) p.vx *= -1;
+    if (p.y <= 0 || p.y >= canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ffffff';
+    ctx.fill();
+
+    particles.forEach(p2 => {
+      const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.stroke();
+      }
+    });
+  });
+
+  requestAnimationFrame(draw);
+}
+
+window.onload = () => {
+  initParticles();
+  draw();
+};
+</script>
+
+</body>
+</html>
