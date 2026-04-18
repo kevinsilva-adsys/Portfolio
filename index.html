@@ -14,7 +14,7 @@
 <style>
 :root {
   --bg: #050505;
-  --primary: #e6e6e6; /* branco/prata */
+  --primary: #e6e6e6;
   --secondary: #111;
   --glass: rgba(255,255,255,0.05);
   --text: #fff;
@@ -72,7 +72,6 @@ canvas {
 
 .sidebar.active { left: 0; }
 
-/* botão fechar */
 .close-btn {
   cursor: pointer;
   font-size: 20px;
@@ -124,7 +123,6 @@ canvas {
   transform: scale(1.2);
 }
 
-/* dropdown controlado via JS */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -168,30 +166,20 @@ canvas {
   <img src="fotoperfil.jpeg">
   <h2>Kevin L. Silva — ADSys</h2>
 
-  <p>Olá! Sou Kevin, Analista de Sistemas. Minha expertise está voltada para a implementação, suporte técnico e melhoria contínua de sistemas, sempre com o objetivo de garantir eficiência e qualidade nos processos de gestão em geral.</p>
+  <p>Olá! Sou Kevin, Analista de Sistemas...</p>
 
   <div class="section">
     <button onclick="toggle('formacao')">Formações</button>
-    <p id="formacao" class="hidden">Anhanguera Educacional - Technical Degree, Computer Systems Analysis - ago/2024 – jan/2027</p>
+    <p id="formacao" class="hidden">Anhanguera Educacional...</p>
 
     <button onclick="toggle('vivver')">Crescer & Vivver Sistemas</button>
-    <p id="vivver" class="hidden">System Analyst - Atualmente, atuo na homologação de versões de um software de gestão voltado para a saúde pública, com foco na identificação e localização de erros. Quando problemas são detectados, realizo a abertura de chamados em diferentes sistemas de gestão de tickets, garantindo o registro e acompanhamento adequado das ocorrências. Também presto suporte técnico tanto para colaboradores internos da empresa (Implantadores) quanto para clientes externos, principalmente profissionais da saúde. Esse suporte é realizado por meio de atendimento via e-mail e telefonia, assegurando a resolução de dúvidas, problemas técnicos e a orientação necessária para o uso eficiente do sistema. Minha atuação combina habilidades técnicas, como análise de erros e gestão de chamados, com competências interpessoais, como comunicação clara e atendimento ao cliente, sempre visando a melhoria contínua dos processos e a satisfação dos usuários.</p>
+    <p id="vivver" class="hidden">System Analyst...</p>
 
     <button onclick="toggle('potenza')">Correios/Potenza</button>
-    <p id="potenza" class="hidden">Supervisor - No cargo de Supervisor Operacional, atuei em uma empresa terceirizada prestando serviços aos Correios, mantendo as mesmas responsabilidades e funções, mas sob uma nova gestão.</p>
+    <p id="potenza" class="hidden">Supervisor...</p>
 
     <button onclick="toggle('go2b')">Correios/GO2B</button>
-    <p id="go2b" class="hidden">Supervisor - No cargo de Supervisor Operacional, atuei em uma empresa terceirizada prestando serviços aos Correios. Fui responsável pela gestão completa da operação, garantindo eficiência, organização e qualidade em todos os processos. Minhas principais atribuições incluíam:
-
-Direcionamento de Cargas: Coordenava o fluxo de cargas, assegurando que os recursos fossem alocados de forma estratégica para atender às demandas operacionais.
-
-Planejamento de Fluxo Operacional: Elaborava e implementava planos de ação alinhados às necessidades da operação, otimizando o tempo e os recursos disponíveis.
-
-Gestão de Equipe: Supervisionava a equipe do setor, gerenciando horários, condutas e desempenho, além de promover um ambiente de trabalho colaborativo e produtivo.
-
-Resolução de Desafios Operacionais: Atuava de forma proativa para identificar e solucionar problemas, garantindo a continuidade e a qualidade dos serviços prestados.
-
-Minha atuação como supervisor exigia habilidades de liderança, organização e tomada de decisão, sempre com foco em alcançar os objetivos operacionais e manter a excelência no atendimento às demandas da empresa.</p>
+    <p id="go2b" class="hidden">Supervisor...</p>
   </div>
 </div>
 
@@ -209,6 +197,11 @@ Minha atuação como supervisor exigia habilidades de liderança, organização 
   </div>
 
   <a href="https://wa.me/5531994953531" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- BAIXAR CURRICULO -->
+  <a href="KevinLSilva_Curriculo.pdf" download title="Baixar currículo">
+    <i class="fas fa-file-alt"></i>
+  </a>
 </div>
 
 <script>
@@ -221,7 +214,6 @@ function closeSidebar() {
   document.getElementById('sidebar').classList.remove('active');
 }
 
-// fechar ao clicar fora
 document.addEventListener('click', function(e) {
   const sidebar = document.getElementById('sidebar');
   if (!sidebar.contains(e.target) && !e.target.classList.contains('profile')) {
@@ -229,13 +221,11 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// dropdown github
 function toggleDropdown(e) {
   e.preventDefault();
   document.getElementById('githubMenu').classList.toggle('show');
 }
 
-// fechar dropdown ao clicar fora
 document.addEventListener('click', function(e) {
   const menu = document.getElementById('githubMenu');
   if (!e.target.closest('.dropdown')) {
